@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>通讯录列表页面</title>
+    <style>
+
+        input{
+            height: 30px;
+            width: 4em;
+            font-size: 20px;
+        }
+        body{
+            background-image:url('background.jpg');
+            background-repeat:no-repeat;
+        }
+        .column1 {
+            visibility:hidden;
+            float: left;
+            width: 10%;
+        }
+        .column2 {
+            float: left;
+            width: 80%;
+        }
+        table
+        {
+            border-collapse:collapse;
+        }
+        table,th, td
+        {
+            border: 1px solid black;
+        }
+        table
+        {
+            width:100%;
+        }
+        th
+        {
+            height:30px;
+        }
+    </style>
+</head>
+<body>
+<div class="column1">隐藏</div>
+<div class="column2">
+<table class="table table-hover table-bordered" id="mytable">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>姓名</th>
+        <th>电话</th>
+        <th>邮箱</th>
+        <th>住址</th>
+        <th>QQ号</th>
+        <th>修改</th>
+        <th>删除</th>
+    </tr>
+    <tr th:each="contact : ${user}">
+        <td th:text="${contact.current_id}"></td>
+        <td th:text="${contact.name}"></td>
+        <td th:text="${contact.phone}"></td>
+        <td th:text="${contact.email}"></td>
+        <td th:text="${contact.address}"></td>
+        <td th:text="${contact.qq}"></td>
+
+        <form th:action="@{'/list/update/'+${contact.current_id}}" method="get">
+            <td><input type="submit" name="" value="修改" class="btn btn-info"/></td>
+        </form>
+
+        <form th:action="@{'/list/del/'+${contact.current_id}}" method="post">
+            <td><input type="submit" name="" value="删除" class="btn btn-danger"/></td>
+        </form>
+    </tr>
+</table>
+<form th:action="@{/add}" method="get">
+    <center>
+        <input type="submit" value="添加" class="btn btn-success">
+    </center>
+</form>
+</div>
+<div class="column1">隐藏</div>
+</body>
+</html>
